@@ -42,6 +42,8 @@ void BFS(int a, int b, int target)
             isSolvable = true;
 
             // print the solution path
+            cout << "\nPath from initial state "
+             "to solution state :\n";
             int sz = path.size();
             for (int i = 0; i < sz; i++)
                 cout << "(" << path[i].first
@@ -55,10 +57,12 @@ void BFS(int a, int b, int target)
         // states to reach solution state
         if (m.find({ u.first, b }) == m.end()) {
             m[{ u.first, b }] = 0;
+	    cout << "fill jug2\n";
             q.push_back({ u.first, b }); // fill Jug2
         }
         if  (m.find({a, u.second}) == m.end()) {
             m[{ a, u.second }] = 0;
+            cout << "fill jug1\n";
             q.push_back({ a, u.second }); // fill Jug1
         }
 
@@ -71,6 +75,7 @@ void BFS(int a, int b, int target)
             // check if this state is possible or not
             if ((c == a || (d == 0)) && (c >= 0 && c <=a && d >=0 && d <=b)) {
                 if (m.find({c, d}) == m.end()) {
+                    cout << "pour the jug2 into jug1\n"; 
                     q.push_back({ c, d });
                     m[{ c, d}] = 0;
                 }
@@ -83,6 +88,7 @@ void BFS(int a, int b, int target)
             // check if this state is possible or not
             if (((c == 0) || d == b) && (c >= 0 && c <=a && d >=0 && d <=b)) {
                 if (m.find({c, d}) == m.end()) {
+                    cout << "pour jug1 into jug2\n";
                     q.push_back({ c, d });
                     m[{c ,d}] = 0;
                 }
@@ -150,9 +156,8 @@ void BFS(int a, int b, int target)
 int main()
 {
 //    target is first jug
-    int Jug1 = 4, Jug2 = 3, target = 2;
-    cout << "Path from initial state "
-            "to solution state :\n";
+    int Jug1 = 4, Jug2 = 3, target = 1;
+    cout << "Steps: \n";
     BFS(Jug1, Jug2, target);
     return 0;
 }
